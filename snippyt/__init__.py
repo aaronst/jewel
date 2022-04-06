@@ -19,14 +19,19 @@ limitations under the License.
 
 
 from importlib import import_module
+from io import StringIO
 from inspect import getdoc, getmembers, getsourcelines
 from pathlib import Path
 
-from rich.console import Console
-from rich.terminal_theme import MONOKAI
+from rich.console import Console, ConsoleOptions
+from rich.measure import measure_renderables
+from rich.syntax import Syntax, SyntaxTheme, DEFAULT_THEME
+from rich.terminal_theme import TerminalTheme, DEFAULT_TERMINAL_THEME
+
+from .formats import create_format
 
 
-def remove_docstring(lines: list[str], docs: list[str]) -> list[str]:
+def remove_docstring(lines: list[str], docs: list[str]) -> str:
     """Remove the docstring from the lines of code.
 
     Parameters
@@ -55,10 +60,10 @@ def remove_docstring(lines: list[str], docs: list[str]) -> list[str]:
 
             break
 
-    return no_docs
+    return "".join(no_docs)
 
 
-def get_member_source(module: str, member: str, keep_docs: bool = False) -> list[str]:
+def get_member_source(module: str, member: str, docstring: bool = True) -> str:
     """Get the source code for a given module and member.
 
     Parameters
@@ -67,8 +72,8 @@ def get_member_source(module: str, member: str, keep_docs: bool = False) -> list
         The module to use.
     member : str
         The member within the module to use.
-    keep_docs : bool, optional
-        Whether to keep the docstring, by default False.
+    docstring : bool, optional
+        Whether to include the docstring, by default True.
 
     Returns
     -------
@@ -88,22 +93,25 @@ def get_member_source(module: str, member: str, keep_docs: bool = False) -> list
 
     lines = getsourcelines(match)[0]
 
-    if keep_docs:
-        return lines
+    if docstring:
+        return "".join(lines)
 
     docs = getdoc(match).splitlines(keepends=True)
     return remove_docstring(lines, docs)
 
 
-def create_snippet(
+def create_snippyt(
     output: str | Path,
-    border: bool = False,
+    after: bool = True,
+    docstring: bool = True,
+    guides: bool = False,
     input_file: str | Path | None = None,
-    keep_docs: bool = False,
-    lines: list[int, int] | tuple[list, list] | None = None,
-    member: list[str, str] | tuple[str, str] | None = None,
+    lines: list[int] | tuple[list, list] | None = None,
+    member: list[str] | tuple[str, str] | None = None,
     numbers: bool = False,
+    theme: str | SyntaxTheme = DEFAULT_THEME,
     title: str | None = None,
+    traffic_lights: bool = True,
     width: int | None = None,
 ) -> None:
     """Create a code snippet.
@@ -112,51 +120,81 @@ def create_snippet(
     ----------
     output : str | Path
         A path to save the SVG to.
-    border : bool, optional
-        Whether to include a border, by default False.
+    after : bool, optional
+        Whether to include the terminal:after gradient, by default True.
+    docstring : bool, optional
+        Whether to include the member docstring, by default True.
+    guides : bool, optional
+        Whether to include indent guides, by default False.
     input_file : str | Path | None, optional
         A path to the Python file containing the code you want, by default None.
-    keep_docs : bool, optional
-        Whether to keep member docstrings, by default False.
-    lines : list[int, int] | tuple[int, int] | None, optional
+    lines : list[int] | tuple[int, int] | None, optional
         The range of lines for the snippet, by default None.
-    member : str | None
-        The name of the member for the snippet, by default None.
+    member : list[str] | tuple[str, str] | None
+        The name of the module and member for the snippet, by default None.
     numbers : bool, optional
         Whether to include line numbers, by default False.
+    theme : str | SyntaxTheme, optional
+        The syntax theme to use, by default DEFAULT_THEME.
     title : str | None, optional
         A title for the snippet, by default None.
+    traffic_lights : bool, optional
+        Whether to include traffic lights, by default True.
     width : int | None, optional
         The width of the snippet, by default None.
     """
 
-    if lines is not None:
-        if input_file is None:
-            raise ValueError("input_file must be specified with lines")
-
-        start = lines[0] - 1
-        end = lines[1]
-
-        with open(input_file) as source:
-            code = source.readlines()[start:end]
+    if input_file is not None:
+        syntax = Syntax.from_path(
+            input_file,
+            "python",
+            dedent=True,
+            indent_guides=guides,
+            line_numbers=numbers,
+            line_range=lines,
+            theme=theme,
+            word_wrap=True,
+        )
 
     elif member is not None:
-        code = get_member_source(*member, keep_docs=keep_docs)
+        code = get_member_source(*member, docstring=docstring)
 
-        if title is None:
-            title = member[1]
+        syntax = Syntax(
+            code,
+            "python",
+            dedent=True,
+            indent_guides=guides,
+            line_numbers=numbers,
+            theme=theme,
+            word_wrap=True,
+        )
 
     else:
-        if input_file is None:
-            raise ValueError("no input_file was given")
-
-        with open(input_file) as source:
-            code = source.readlines()
+        raise ValueError("Must provide an input file or module member.")
 
     if width is None:
-        width = max(len(line) for line in code)
+        # set the width to fit the code
+        width = (
+            syntax._numbers_column_width
+            + max(len(line) for line in syntax.code.splitlines())
+            + (3 if numbers else 0)
+        )
 
-    console = Console(record=True, width=width)
+    console = Console(file=StringIO(), record=True, width=width)
+    console.print(syntax)
 
-    console.print("".join(code))
-    console.save_svg(output, title=title, theme=MONOKAI)
+    if title is None and not traffic_lights:
+        code_format = create_format(after=after, header=False)
+    else:
+        code_format = create_format(
+            after=after, title=title is not None, traffic_lights=traffic_lights
+        )
+
+    # this is only to get the console background the same as the code background
+    terminal_theme = TerminalTheme(
+        syntax._theme._background_style.bgcolor.triplet,
+        (255, 255, 255),  # white
+        DEFAULT_TERMINAL_THEME.ansi_colors._colors,
+    )
+
+    console.save_svg(output, code_format=code_format, theme=terminal_theme, title=title)
