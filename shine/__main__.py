@@ -1,5 +1,5 @@
 """
-snippyt: Command-line tool for creating Python code snippets.
+shine: Command-line tool for creating Python code snippets.
 author: Aaron Stephens <aaronjst93@gmail.com>
 
 Copyright 2022 Aaron Stephens
@@ -20,7 +20,7 @@ limitations under the License.
 
 from argparse import ArgumentParser, Namespace
 
-from . import create_snippyt
+from . import create_snippet
 
 
 def main(args: Namespace) -> None:
@@ -33,7 +33,7 @@ def main(args: Namespace) -> None:
     """
 
     try:
-        create_snippyt(
+        create_snippet(
             args.output,
             after=args.no_after,
             docstring=args.no_docs,
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     svg_group.add_argument(
         "-o",
         "--output",
-        default="snippyt.svg",
+        default="shine.svg",
         help="Where to save the SVG.",
         metavar="PATH",
     )

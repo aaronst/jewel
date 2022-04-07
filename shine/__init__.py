@@ -1,5 +1,5 @@
 """
-snippyt: Command-line tool for creating Python code snippets.
+shine: Command-line tool for creating Python code snippets.
 author: Aaron Stephens <aaronjst93@gmail.com>
 
 Copyright 2022 Aaron Stephens
@@ -100,7 +100,7 @@ def get_member_source(module: str, member: str, docstring: bool = True) -> str:
     return remove_docstring(lines, docs)
 
 
-def create_snippyt(
+def create_snippet(
     output: str | Path,
     after: bool = True,
     docstring: bool = True,
