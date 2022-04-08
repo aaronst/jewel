@@ -1,5 +1,5 @@
 """
-shine: Command-line tool for creating Python code snippets.
+shine: Rich Python snippets. Let your code shine!
 author: Aaron Stephens <aaronjst93@gmail.com>
 
 Copyright 2022 Aaron Stephens
@@ -20,68 +20,69 @@ limitations under the License.
 
 from importlib import import_module
 from io import StringIO
-from inspect import getdoc, getmembers, getsourcelines
+from inspect import getmembers, getsource
 from pathlib import Path
+from typing import Any, List, Optional, Tuple, Union
 
-from rich.console import Console, ConsoleOptions
-from rich.measure import measure_renderables
+from rich.console import Console
 from rich.syntax import Syntax, SyntaxTheme, DEFAULT_THEME
 from rich.terminal_theme import TerminalTheme, DEFAULT_TERMINAL_THEME
 
 from .formats import create_format
 
 
-def remove_docstring(lines: list[str], docs: list[str]) -> str:
-    """Remove the docstring from the lines of code.
+def remove_docstring(member: Any) -> str:
+    """Remove a member's docstring.
 
     Parameters
     ----------
-    lines : list[str]
-        The lines of code.
-    docs : list[str]
-        The docstring to remove.
+    member : Any
+        The member to remove a docstring from.
 
     Returns
     -------
-    list[str]
-        The lines of code with the docstring removed.
+    str
+        The code for the member with the docstring removed.
     """
 
-    no_docs = lines
+    source = getsource(member)
 
-    for i, line in enumerate(lines):
-        if line.endswith(docs[0]):
-            end = i + len(docs)
+    try:
+        doc = f'"""{member.__doc__}"""\n'
+    except AttributeError:
+        return source
 
-            if lines[end].endswith('"""\n'):
-                del no_docs[i : end + 1]
-            else:
-                del no_docs[i:end]
+    try:
+        location = source.index(doc)
+    except ValueError:
+        return source
 
+    for i in range(location - 1, 1, -1):
+        if source[i - 1] == "\n":
+            start = i
             break
 
-    return "".join(no_docs)
+    return source.replace(source[start : location + len(doc)], "")
 
 
-def get_member_source(module: str, member: str, docstring: bool = True) -> str:
+def get_member_source(member: str, docstring: bool = True) -> str:
     """Get the source code for a given module and member.
 
     Parameters
     ----------
-    module : str
-        The module to use.
     member : str
-        The member within the module to use.
+        The `module.member` to use.
     docstring : bool, optional
         Whether to include the docstring, by default True.
 
     Returns
     -------
-    list[str]
-        The lines of source code for the member.
+    str
+        The source code for the member.
     """
 
     match = None
+    module, member = member.rsplit(".", maxsplit=1)
 
     for name, thing in getmembers(import_module(module)):
         if name == member:
@@ -91,34 +92,31 @@ def get_member_source(module: str, member: str, docstring: bool = True) -> str:
     if match is None:
         raise ValueError(f"Could not find member {member} in {module}.")
 
-    lines = getsourcelines(match)[0]
-
     if docstring:
-        return "".join(lines)
+        return getsource(match)
 
-    docs = getdoc(match).splitlines(keepends=True)
-    return remove_docstring(lines, docs)
+    return remove_docstring(match)
 
 
 def create_snippet(
-    output: str | Path,
+    output: Union[str, Path],
     after: bool = True,
     docstring: bool = True,
     guides: bool = False,
-    input_file: str | Path | None = None,
-    lines: list[int] | tuple[list, list] | None = None,
-    member: list[str] | tuple[str, str] | None = None,
+    input_file: Optional[Union[str, Path]] = None,
+    lines: Optional[Union[List[int], Tuple[List, List]]] = None,
+    member: Optional[str] = None,
     numbers: bool = False,
-    theme: str | SyntaxTheme = DEFAULT_THEME,
-    title: str | None = None,
+    theme: Union[str, SyntaxTheme] = DEFAULT_THEME,
+    title: Optional[str] = None,
     traffic_lights: bool = True,
-    width: int | None = None,
+    width: Optional[int] = None,
 ) -> None:
     """Create a code snippet.
 
     Parameters
     ----------
-    output : str | Path
+    output : Union[str, Path]
         A path to save the SVG to.
     after : bool, optional
         Whether to include the terminal:after gradient, by default True.
@@ -126,21 +124,21 @@ def create_snippet(
         Whether to include the member docstring, by default True.
     guides : bool, optional
         Whether to include indent guides, by default False.
-    input_file : str | Path | None, optional
+    input_file : Optional[Union[str, Path]], optional
         A path to the Python file containing the code you want, by default None.
-    lines : list[int] | tuple[int, int] | None, optional
+    lines : Optional[Union[List[int], Tuple[int, int]]], optional
         The range of lines for the snippet, by default None.
-    member : list[str] | tuple[str, str] | None
-        The name of the module and member for the snippet, by default None.
+    member : Optional[str], optional
+        The member for the snippet, by default None.
     numbers : bool, optional
         Whether to include line numbers, by default False.
-    theme : str | SyntaxTheme, optional
+    theme : Union[str, SyntaxTheme], optional
         The syntax theme to use, by default DEFAULT_THEME.
-    title : str | None, optional
+    title : Optional[str], optional
         A title for the snippet, by default None.
     traffic_lights : bool, optional
         Whether to include traffic lights, by default True.
-    width : int | None, optional
+    width : Optional[int], optional
         The width of the snippet, by default None.
     """
 
@@ -157,7 +155,7 @@ def create_snippet(
         )
 
     elif member is not None:
-        code = get_member_source(*member, docstring=docstring)
+        code = get_member_source(member, docstring=docstring)
 
         syntax = Syntax(
             code,

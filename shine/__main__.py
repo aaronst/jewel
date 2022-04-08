@@ -1,5 +1,5 @@
 """
-shine: Command-line tool for creating Python code snippets.
+shine: Rich Python snippets. Let your code shine!
 author: Aaron Stephens <aaronjst93@gmail.com>
 
 Copyright 2022 Aaron Stephens
@@ -18,56 +18,23 @@ limitations under the License.
 """
 
 
-from argparse import ArgumentParser, Namespace
+from argparse import ArgumentParser
+
+from rich import print  # pylint: disable=redefined-builtin
 
 from . import create_snippet
 
 
-def main(args: Namespace) -> None:
-    """Main function.
+def main() -> None:
+    """Main function."""
 
-    Parameters
-    ----------
-    args : Namespace
-        The parsed command-line arguments.
-    """
-
-    try:
-        create_snippet(
-            args.output,
-            after=args.no_after,
-            docstring=args.no_docs,
-            guides=args.guides,
-            input_file=args.input,
-            lines=args.lines,
-            member=args.member,
-            numbers=args.numbers,
-            theme=args.theme,
-            title=args.title,
-            traffic_lights=args.no_traffic_lights,
-            width=args.width,
-        )
-    except ValueError as err:
-        print(err)
-        return
-
-    print(f"Saved SVG to {args.output}.")
-
-
-if __name__ == "__main__":
-    parser = ArgumentParser(description="Create Python code snippets.")
+    parser = ArgumentParser(description="Rich Python snippets. Let your code shine!")
 
     input_group = parser.add_mutually_exclusive_group(required=True)
     input_group.add_argument(
         "-i", "--input", help="The Python file to use.", metavar="PATH"
     )
-    input_group.add_argument(
-        "-m",
-        "--member",
-        help="The module and member to use.",
-        metavar=("MODULE", "MEMBER"),
-        nargs=2,
-    )
+    input_group.add_argument("-m", "--member", help="The member to use.")
 
     parser.add_argument(
         "-l",
@@ -109,4 +76,32 @@ if __name__ == "__main__":
     svg_group.add_argument("-t", "--title", help="A title for the snippet.")
     svg_group.add_argument("-w", "--width", help="The width of the snippet.", type=int)
 
-    main(parser.parse_args())
+    args = parser.parse_args()
+
+    try:
+        create_snippet(
+            args.output,
+            after=args.no_after,
+            docstring=args.no_docs,
+            guides=args.guides,
+            input_file=args.input,
+            lines=args.lines,
+            member=args.member,
+            numbers=args.numbers,
+            theme=args.theme,
+            title=args.title,
+            traffic_lights=args.no_traffic_lights,
+            width=args.width,
+        )
+    except TypeError:
+        print(f":stop_sign: [bold red]Failed to get source for {args.member}.")
+        return
+    except ValueError as err:
+        print(f":stop_sign: [bold red]{err}")
+        return
+
+    print(f":sparkles: [bold]Saved SVG to [yellow]{args.output}[/yellow]!")
+
+
+if __name__ == "__main__":
+    main()

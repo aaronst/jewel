@@ -1,5 +1,5 @@
 """
-snippyt: Command-line tool for creating Python code snippets.
+shine: Rich Python snippets. Let your code shine!
 author: Aaron Stephens <aaronjst93@gmail.com>
 
 Copyright 2022 Aaron Stephens
