@@ -4,6 +4,8 @@
 
 ## Examples
 
+### Module & Member Input
+
 ```
 > jewel -m rich.print -th dracula
 
@@ -11,6 +13,8 @@
 ```
 
 ![The source code for `rich.print`.](jewel.svg)
+
+### File & Line Number Input
 
 ```
 > jewel -i jewel/__main__.py -l 81 101 -o file_input.svg
