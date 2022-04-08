@@ -1,0 +1,151 @@
+<svg width="1425.0" height="868" viewBox="0 0 1425.0 868"
+     xmlns="http://www.w3.org/2000/svg">
+    <style>
+        @font-face {
+            font-family: "Fira Code";
+            src: local("FiraCode-Regular"),
+                 url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Regular.woff2") format("woff2"),
+                 url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Regular.woff") format("woff");
+            font-style: normal;
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: "Fira Code";
+            src: local("FiraCode-Bold"),
+                 url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff2/FiraCode-Bold.woff2") format("woff2"),
+                 url("https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bold.woff") format("woff");
+            font-style: bold;
+            font-weight: 700;
+        }
+        span {
+            display: inline-block;
+            white-space: pre;
+            vertical-align: top;
+            font-size: 18px;
+            font-family:'Fira Code','Cascadia Code',Monaco,Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .blink {
+           animation: blinker 1s infinite;
+        }
+        @keyframes blinker {
+            from { opacity: 1.0; }
+            50% { opacity: 0.3; }
+            to { opacity: 1.0; }
+        }
+        #wrapper {
+            padding: 140px;
+            padding-top: 100px;
+        }
+        #terminal {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #272822;
+            border-radius: 14px;
+            outline: 1px solid #484848;
+        }
+        #terminal:after {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            content: '';
+            border-radius: 14px;
+            background: rgb(71,77,102);
+            background: linear-gradient(90deg, #804D69 0%, #4E4B89 100%);
+            transform: rotate(-4.5deg);
+            z-index: -1;
+        }
+
+        #terminal-header {
+            position: relative;
+            width: 100%;
+            min-height: 64px;
+            background-color: #2e2e2e;
+            margin-bottom: 12px;
+            font-weight: bold;
+            border-radius: 14px 14px 0 0;
+            color: #ffffff;
+            font-size: 18px;
+            box-shadow: inset 0px -1px 0px 0px #4e4e4e,
+                        inset 0px -4px 8px 0px #1a1a1a;
+        }
+        #terminal-title-tab {
+            display: inline-block;
+            margin-top: 14px;
+            margin-left: 124px;
+            font-family: sans-serif;
+            padding: 14px 28px;
+            border-radius: 6px 6px 0 0;
+            background-color: #272822;
+            box-shadow: inset 0px 1px 0px 0px #4e4e4e,
+                        0px -4px 4px 0px #1e1e1e,
+                        inset 1px 0px 0px 0px #4e4e4e,
+                        inset -1px 0px 0px 0px #4e4e4e;
+        }
+        #terminal-traffic-lights {
+            position: absolute;
+            top: 24px;
+            left: 20px;
+        }
+        #terminal-body {
+            line-height: 22px;
+            padding: 14px;
+        }
+        .r1 {color: #ffffff; text-decoration-color: #ffffff;background-color: #272822;}
+.r2 {color: #66d9ef; text-decoration-color: #66d9ef; background-color: #272822}
+.r3 {color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822}
+.r4 {color: #a6e22e; text-decoration-color: #a6e22e; background-color: #272822}
+.r5 {background-color: #272822;color: #ffffff; text-decoration-color: #ffffff;}
+.r6 {color: #f92672; text-decoration-color: #f92672; background-color: #272822}
+.r7 {color: #e6db74; text-decoration-color: #e6db74; background-color: #272822}
+.r8 {color: #ae81ff; text-decoration-color: #ae81ff; background-color: #272822}
+    </style>
+    <foreignObject x="0" y="0" width="100%" height="100%">
+        <body xmlns="http://www.w3.org/1999/xhtml">
+            <div id="wrapper">
+                <div id="terminal">
+                    <div id='terminal-header'>
+                        <svg id="terminal-traffic-lights" width="90" height="21" viewBox="0 0 90 21" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="14" cy="8" r="8" fill="#ff6159"/>
+                            <circle cx="38" cy="8" r="8" fill="#ffbd2e"/>
+                            <circle cx="62" cy="8" r="8" fill="#28c941"/>
+                        </svg>
+
+                    </div>
+
+                    <div id='terminal-body'>
+                        <div><span class="r2">def</span><span class="r3"> </span><span class="r4">print</span><span class="r3">(</span><span class="r5">                                                                                     </span></div>
+<div><span class="r3">    </span><span class="r6">*</span><span class="r3">objects: Any,</span><span class="r5">                                                                             </span></div>
+<div><span class="r3">    sep: str </span><span class="r6">=</span><span class="r3"> </span><span class="r7">&quot; &quot;</span><span class="r3">,</span><span class="r5">                                                                            </span></div>
+<div><span class="r3">    end: str </span><span class="r6">=</span><span class="r3"> </span><span class="r7">&quot;</span><span class="r8">\n</span><span class="r7">&quot;</span><span class="r3">,</span><span class="r5">                                                                           </span></div>
+<div><span class="r3">    file: Optional[IO[str]] </span><span class="r6">=</span><span class="r3"> </span><span class="r2">None</span><span class="r3">,</span><span class="r5">                                                            </span></div>
+<div><span class="r3">    flush: bool </span><span class="r6">=</span><span class="r3"> </span><span class="r2">False</span><span class="r3">,</span><span class="r5">                                                                       </span></div>
+<div><span class="r3">) </span><span class="r6">-&gt;</span><span class="r3"> </span><span class="r2">None</span><span class="r3">:</span><span class="r5">                                                                                     </span></div>
+<div><span class="r3">    </span><span class="r7">r&quot;&quot;&quot;Print object(s) supplied via positional arguments.</span><span class="r5">                                     </span></div>
+<div><span class="r7">    This function has an identical signature to the built-in print.</span><span class="r5">                            </span></div>
+<div><span class="r7">    For more advanced features, see the :class:`~rich.console.Console` class.</span><span class="r5">                  </span></div>
+<div><span class="r5">                                                                                               </span></div>
+<div><span class="r7">    Args:</span><span class="r5">                                                                                      </span></div>
+<div><span class="r7">        sep (str, optional): Separator between printed objects. Defaults to &quot; &quot;.</span><span class="r5">               </span></div>
+<div><span class="r7">        end (str, optional): Character to write at end of output. Defaults to &quot;\\n&quot;.</span><span class="r5">           </span></div>
+<div><span class="r7">        file (IO[str], optional): File to write to, or None for stdout. Defaults to None.</span><span class="r5">      </span></div>
+<div><span class="r7">        flush (bool, optional): Has no effect as Rich always flushes output. Defaults to False.</span></div>
+<div><span class="r5">                                                                                               </span></div>
+<div><span class="r7">    &quot;&quot;&quot;</span><span class="r5">                                                                                        </span></div>
+<div><span class="r3">    </span><span class="r6">from</span><span class="r3"> .console </span><span class="r6">import</span><span class="r3"> Console</span><span class="r5">                                                               </span></div>
+<div><span class="r5">                                                                                               </span></div>
+<div><span class="r3">    write_console </span><span class="r6">=</span><span class="r3"> get_console() </span><span class="r2">if</span><span class="r3"> file </span><span class="r6">is</span><span class="r3"> </span><span class="r2">None</span><span class="r3"> </span><span class="r2">else</span><span class="r3"> Console(file</span><span class="r6">=</span><span class="r3">file)</span><span class="r5">                      </span></div>
+<div><span class="r3">    </span><span class="r2">return</span><span class="r3"> write_console</span><span class="r6">.</span><span class="r3">print(</span><span class="r6">*</span><span class="r3">objects, sep</span><span class="r6">=</span><span class="r3">sep, end</span><span class="r6">=</span><span class="r3">end)</span><span class="r5">                                     </span></div>
+<div><span class="r5">                                                                                               </span></div>
+<div><span class="r1"></span><span class="r1">                                                                                               </span></div>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </foreignObject>
+</svg>
