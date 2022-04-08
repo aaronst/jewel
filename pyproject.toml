@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "shine"
+name = "jewel"
 version = "0.1.0"
-description = "Rich Python snippets. Let your code shine!"
+description = "Rich Python code snippets."
 authors = ["Aaron Stephens <aaronjst93@gmail.com>"]
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.6.3"
 rich = "^12.1.0"
 
 [tool.poetry.dev-dependencies]
@@ -15,7 +15,7 @@ pylint = "^2.13.4"
 mypy = "^0.942"
 
 [tool.poetry.scripts]
-shine = "shine.__main__:main"
+jewel = "jewel.__main__:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

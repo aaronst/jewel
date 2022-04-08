@@ -45,7 +45,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #272822;
+            background-color: #282a36;
             border-radius: 14px;
             outline: 1px solid #484848;
         }
@@ -81,7 +81,7 @@
             font-family: sans-serif;
             padding: 14px 28px;
             border-radius: 6px 6px 0 0;
-            background-color: #272822;
+            background-color: #282a36;
             box-shadow: inset 0px 1px 0px 0px #4e4e4e,
                         0px -4px 4px 0px #1e1e1e,
                         inset 1px 0px 0px 0px #4e4e4e,
@@ -96,14 +96,13 @@
             line-height: 22px;
             padding: 14px;
         }
-        .r1 {color: #ffffff; text-decoration-color: #ffffff;background-color: #272822;}
-.r2 {color: #66d9ef; text-decoration-color: #66d9ef; background-color: #272822}
-.r3 {color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #272822}
-.r4 {color: #a6e22e; text-decoration-color: #a6e22e; background-color: #272822}
-.r5 {background-color: #272822;color: #ffffff; text-decoration-color: #ffffff;}
-.r6 {color: #f92672; text-decoration-color: #f92672; background-color: #272822}
-.r7 {color: #e6db74; text-decoration-color: #e6db74; background-color: #272822}
-.r8 {color: #ae81ff; text-decoration-color: #ae81ff; background-color: #272822}
+        .r1 {color: #ffffff; text-decoration-color: #ffffff;background-color: #282a36;}
+.r2 {color: #ff79c6; text-decoration-color: #ff79c6; background-color: #282a36}
+.r3 {color: #f8f8f2; text-decoration-color: #f8f8f2; background-color: #282a36}
+.r4 {color: #50fa7b; text-decoration-color: #50fa7b; background-color: #282a36}
+.r5 {background-color: #282a36;color: #ffffff; text-decoration-color: #ffffff;}
+.r6 {color: #8be9fd; text-decoration-color: #8be9fd; background-color: #282a36; font-style: italic}
+.r7 {color: #bd93f9; text-decoration-color: #bd93f9; background-color: #282a36}
     </style>
     <foreignObject x="0" y="0" width="100%" height="100%">
         <body xmlns="http://www.w3.org/1999/xhtml">
@@ -120,12 +119,12 @@
 
                     <div id='terminal-body'>
                         <div><span class="r2">def</span><span class="r3"> </span><span class="r4">print</span><span class="r3">(</span><span class="r5">                                                                                     </span></div>
-<div><span class="r3">    </span><span class="r6">*</span><span class="r3">objects: Any,</span><span class="r5">                                                                             </span></div>
-<div><span class="r3">    sep: str </span><span class="r6">=</span><span class="r3"> </span><span class="r7">&quot; &quot;</span><span class="r3">,</span><span class="r5">                                                                            </span></div>
-<div><span class="r3">    end: str </span><span class="r6">=</span><span class="r3"> </span><span class="r7">&quot;</span><span class="r8">\n</span><span class="r7">&quot;</span><span class="r3">,</span><span class="r5">                                                                           </span></div>
-<div><span class="r3">    file: Optional[IO[str]] </span><span class="r6">=</span><span class="r3"> </span><span class="r2">None</span><span class="r3">,</span><span class="r5">                                                            </span></div>
-<div><span class="r3">    flush: bool </span><span class="r6">=</span><span class="r3"> </span><span class="r2">False</span><span class="r3">,</span><span class="r5">                                                                       </span></div>
-<div><span class="r3">) </span><span class="r6">-&gt;</span><span class="r3"> </span><span class="r2">None</span><span class="r3">:</span><span class="r5">                                                                                     </span></div>
+<div><span class="r3">    </span><span class="r2">*</span><span class="r3">objects: Any,</span><span class="r5">                                                                             </span></div>
+<div><span class="r3">    sep: </span><span class="r6">str</span><span class="r3"> </span><span class="r2">=</span><span class="r3"> </span><span class="r7">&quot; &quot;</span><span class="r3">,</span><span class="r5">                                                                            </span></div>
+<div><span class="r3">    end: </span><span class="r6">str</span><span class="r3"> </span><span class="r2">=</span><span class="r3"> </span><span class="r7">&quot;\n&quot;</span><span class="r3">,</span><span class="r5">                                                                           </span></div>
+<div><span class="r3">    file: Optional[IO[</span><span class="r6">str</span><span class="r3">]] </span><span class="r2">=</span><span class="r3"> </span><span class="r2">None</span><span class="r3">,</span><span class="r5">                                                            </span></div>
+<div><span class="r3">    flush: </span><span class="r6">bool</span><span class="r3"> </span><span class="r2">=</span><span class="r3"> </span><span class="r2">False</span><span class="r3">,</span><span class="r5">                                                                       </span></div>
+<div><span class="r3">) </span><span class="r2">-&gt;</span><span class="r3"> </span><span class="r2">None</span><span class="r3">:</span><span class="r5">                                                                                     </span></div>
 <div><span class="r3">    </span><span class="r7">r&quot;&quot;&quot;Print object(s) supplied via positional arguments.</span><span class="r5">                                     </span></div>
 <div><span class="r7">    This function has an identical signature to the built-in print.</span><span class="r5">                            </span></div>
 <div><span class="r7">    For more advanced features, see the :class:`~rich.console.Console` class.</span><span class="r5">                  </span></div>
@@ -137,10 +136,10 @@
 <div><span class="r7">        flush (bool, optional): Has no effect as Rich always flushes output. Defaults to False.</span></div>
 <div><span class="r5">                                                                                               </span></div>
 <div><span class="r7">    &quot;&quot;&quot;</span><span class="r5">                                                                                        </span></div>
-<div><span class="r3">    </span><span class="r6">from</span><span class="r3"> .console </span><span class="r6">import</span><span class="r3"> Console</span><span class="r5">                                                               </span></div>
+<div><span class="r3">    </span><span class="r2">from</span><span class="r3"> .console </span><span class="r2">import</span><span class="r3"> Console</span><span class="r5">                                                               </span></div>
 <div><span class="r5">                                                                                               </span></div>
-<div><span class="r3">    write_console </span><span class="r6">=</span><span class="r3"> get_console() </span><span class="r2">if</span><span class="r3"> file </span><span class="r6">is</span><span class="r3"> </span><span class="r2">None</span><span class="r3"> </span><span class="r2">else</span><span class="r3"> Console(file</span><span class="r6">=</span><span class="r3">file)</span><span class="r5">                      </span></div>
-<div><span class="r3">    </span><span class="r2">return</span><span class="r3"> write_console</span><span class="r6">.</span><span class="r3">print(</span><span class="r6">*</span><span class="r3">objects, sep</span><span class="r6">=</span><span class="r3">sep, end</span><span class="r6">=</span><span class="r3">end)</span><span class="r5">                                     </span></div>
+<div><span class="r3">    write_console </span><span class="r2">=</span><span class="r3"> get_console() </span><span class="r2">if</span><span class="r3"> file </span><span class="r2">is</span><span class="r3"> </span><span class="r2">None</span><span class="r3"> </span><span class="r2">else</span><span class="r3"> Console(file</span><span class="r2">=</span><span class="r3">file)</span><span class="r5">                      </span></div>
+<div><span class="r3">    </span><span class="r2">return</span><span class="r3"> write_console</span><span class="r2">.</span><span class="r3">print(</span><span class="r2">*</span><span class="r3">objects, sep</span><span class="r2">=</span><span class="r3">sep, end</span><span class="r2">=</span><span class="r3">end)</span><span class="r5">                                     </span></div>
 <div><span class="r5">                                                                                               </span></div>
 <div><span class="r1"></span><span class="r1">                                                                                               </span></div>
                     </div>

@@ -1,23 +1,33 @@
-# shine 
+# jewel
 
-[Rich](https://github.com/Textualize/rich) Python snippets. Let your code shine!
+[Rich](https://github.com/Textualize/rich) Python code snippets.
+
+## Examples
 
 ```
-> shine -m rich.print
+> jewel -m rich.print -th dracula
 
-✨ Saved SVG to shine.svg!
+💎 Saved SVG to jewel.svg!
 ```
 
-![The source code for `rich.print`.](shine.svg)
+![The source code for `rich.print`.](jewel.svg)
+
+```
+> jewel -i jewel/__main__.py -l 81 101 -o file_input.svg
+
+💎 Saved SVG to file_input.svg!
+```
+
+![Source code from `jewel/__main__.py`.](file_input.svg)
 
 ## Usage
 
 ```
-> shine -h
+> jewel -h
 
-usage: shine [-h] (-i PATH | -m MEMBER) [-l START END] [-g] [-n] [-nd] [-th THEME] [-na] [-nt] [-o PATH] [-t TITLE] [-w WIDTH]
+usage: jewel [-h] (-i PATH | -m MEMBER) [-l START END] [-g] [-n] [-nd] [-th THEME] [-na] [-nt] [-o PATH] [-t TITLE] [-w WIDTH]
 
-Rich Python snippets. Let your code shine!
+Rich Python code snippets.
 
 options:
   -h, --help            show this help message and exit

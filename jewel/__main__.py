@@ -1,5 +1,5 @@
 """
-shine: Rich Python snippets. Let your code shine!
+jewel: Rich Python code snippets.
 author: Aaron Stephens <aaronjst93@gmail.com>
 
 Copyright 2022 Aaron Stephens
@@ -28,7 +28,7 @@ from . import create_snippet
 def main() -> None:
     """Main function."""
 
-    parser = ArgumentParser(description="Rich Python snippets. Let your code shine!")
+    parser = ArgumentParser(description="Rich Python code snippets.")
 
     input_group = parser.add_mutually_exclusive_group(required=True)
     input_group.add_argument(
@@ -69,7 +69,7 @@ def main() -> None:
     svg_group.add_argument(
         "-o",
         "--output",
-        default="shine.svg",
+        default="jewel.svg",
         help="Where to save the SVG.",
         metavar="PATH",
     )
@@ -95,12 +95,10 @@ def main() -> None:
         )
     except TypeError:
         print(f":stop_sign: [bold red]Failed to get source for {args.member}.")
-        return
     except ValueError as err:
         print(f":stop_sign: [bold red]{err}")
-        return
-
-    print(f":sparkles: [bold]Saved SVG to [yellow]{args.output}[/yellow]!")
+    else:
+        print(f":gem_stone: [bold]Saved SVG to [yellow]{args.output}[/yellow]!")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 """
-shine: Rich Python snippets. Let your code shine!
+jewel: Rich Python code snippets.
 author: Aaron Stephens <aaronjst93@gmail.com>
 
 Copyright 2022 Aaron Stephens
