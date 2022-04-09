@@ -2,6 +2,10 @@
 
 [Rich](https://github.com/Textualize/rich) Python code snippets.
 
+```
+pip install jewel
+```
+
 ## Examples
 
 ### Module & Member Input
